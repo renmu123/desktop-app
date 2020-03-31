@@ -1,11 +1,15 @@
 // 服务测试
 
-var Notebook = require('notebook');
-var Note = require('note');
-var Api = require('api');
-var User = require('user');
-var Evt = require('evt');
-var Common = require('common');
+var path = require('path');
+var appPath = require('electron-root-path').rootPath;
+
+var Notebook = require(path.resolve(appPath, './lib/notebook'));
+var Note = require(path.resolve(appPath, './lib/note'));
+var Api = require(path.resolve(appPath, './lib/api'));
+var User = require(path.resolve(appPath, './lib/user'));
+var Evt = require(path.resolve(appPath, './lib/evt'));
+
+var Common = require(path.resolve(appPath, './lib/common'));
 
 /*
 Notebook.addNotebook("1", "life");

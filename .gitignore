@@ -15,6 +15,7 @@ min
 /gulpfile_atom.js
 sqlite*
 tinymce_old
+node_modules/
 node_modules/request
 node_modules/fs.extra
 /updates

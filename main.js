@@ -4,7 +4,9 @@ var ipc = require('electron').ipcMain;
 const electron = require('electron');
 const Menu = electron.Menu
 const Tray = electron.Tray
-var pdfMain = require('pdf_main');
+var path = require('path');
+var appPath = require('electron-root-path').rootPath;
+var pdfMain = require(path.resolve(appPath, './lib/pdf_main'));
 var appIcon;
 
 // Report crashes to our server.
@@ -21,19 +23,20 @@ crashReporter.start({
 var mainWindow = null;
 
 // single instance
-const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
-  // Someone tried to run a second instance, we should focus our window.
-  if (mainWindow) {
-    mainWindow.show();
-    if (mainWindow.isMinimized()) {
-      mainWindow.restore();
-    }
-    mainWindow.focus();
-  }
-})
+const gotTheLock = app.requestSingleInstanceLock()
 
-if (shouldQuit) {
+if (!gotTheLock) {
   app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    if (mainWindow) {
+      mainWindow.show();
+      if (mainWindow.isMinimized()) {
+        mainWindow.restore();
+      }
+      mainWindow.focus();
+    }
+  })
 }
 
 // Quit when all windows are closed.
@@ -74,7 +77,9 @@ app.on('activate', function() {
 var DB = {
   init: function () {
     var me = this;
-    var db = require('db_main');
+var path = require('path');
+var appPath = require('electron-root-path').rootPath;
+    var db = require(path.resolve(appPath, './lib/db_main'));
 
     // 前端发来消息
     // m = {token: token, method: 'insert, findOne', dbname: 'notes', params: {username: "life"}};
@@ -173,7 +178,9 @@ function openIt() {
   DB.init();
 
   // 协议
-  var leanoteProtocol = require('leanote_protocol');
+var path = require('path');
+var appPath = require('electron-root-path').rootPath;
+  var leanoteProtocol = require(path.resolve(appPath, './lib/leanote_protocol'));
   leanoteProtocol.init();
 
   // Create the browser window.
@@ -181,7 +188,10 @@ function openIt() {
       width: 1050, 
       height: 595, 
       frame: process.platform != 'darwin', 
-      transparent: false
+      transparent: false,
+      webPreferences: {
+        nodeIntegration: true
+      }
     }
   );
 
@@ -189,6 +199,8 @@ function openIt() {
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/note.html');
+
+  console.log('after load: file://' + __dirname + '/note.html');
 
   bindEvents(mainWindow);
 
@@ -206,10 +218,13 @@ function openIt() {
   // open login.html and note.html
   ipc.on('openUrl', function(event, arg) {
     console.log('openUrl', arg);
+    arg.webPreferences = arg.webPreferences === undefined ? {} : arg.webPreferences;
+    arg.webPreferences.nodeIntegration = true;
 
     var html = arg.html;
     var everWindow = mainWindow;
     var win2 = new BrowserWindow(arg);
+    win2.webContents.openDevTools();
     win2.loadURL('file://' + __dirname + '/' + html);
     mainWindow = win2;
 

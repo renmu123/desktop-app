@@ -1,12 +1,14 @@
 var xml2js = require('xml2js');
 var fs = require('fs');
-var Evt = require('evt');
-var File = require('file');
-var Note = require('note');
-var Web = require('web');
-var Tag = require('tag');
+var Evt = require(path.resolve(appPath, './lib/evt'));
+var File = require(path.resolve(appPath, './lib/file'));
+var Note = require(path.resolve(appPath, './lib/note'));
+var Web = require(path.resolve(appPath, './lib/web'));
+var Tag = require(path.resolve(appPath, './lib/tag'));
 var async = require('async');
-var Common = require('common');
+var path = require('path');
+var appPath = require('electron-root-path').rootPath;
+var Common = require(path.resolve(appPath, './lib/common'));
 
 var Import = {
 

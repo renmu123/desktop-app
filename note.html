@@ -36,7 +36,7 @@ if(process.platform != 'darwin') {
   document.write('<link rel="stylesheet" href="public/themes/windows.css" type="text/css" />');
 }
 function log(o) {
-  // console.trace(o);
+  console.trace(o);
 }
 </script>
 </head>
@@ -650,7 +650,7 @@ var UserInfo = {};
 window.requireNode = window.require;
 window.nodeRequire = window.require;
 window.require = undefined;
-window.debug = false;
+window.debug = true;
 </script>
 
 <!-- 渲染view -->
@@ -678,13 +678,6 @@ window.debug = false;
 window.require = window.requireNode;
 </script>
 <!-- 升级 -->
-<script>
-(function () {
-  var s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.src = 'https://leanote.com/js/app_electron.js?t=' + Math.ceil(new Date() / 3600000);
-  document.getElementsByTagName('body')[0].appendChild(s);
-})();
-</script>
+<script src="upgrade.js"></script>
 </body>
 </html>
