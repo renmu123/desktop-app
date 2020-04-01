@@ -227,7 +227,7 @@ var appPath = require('electron-root-path').rootPath;
     var html = arg.html;
     var everWindow = mainWindow;
     var win2 = new BrowserWindow(arg);
-    win2.webContents.openDevTools();
+    // win2.webContents.openDevTools();
     win2.loadURL('file://' + __dirname + '/' + html);
     mainWindow = win2;
 

@@ -9,7 +9,7 @@ config.codekit
 min
 
 /dist
-/nw
+/nwo
 /atom
 /gulpfile.js
 /gulpfile_atom.js
@@ -24,3 +24,6 @@ node_modules/fs.extra
 /public/themes/**/*.css
 /public/css/**/*.css
 /dev/node_modules
+
+/deploy.sh
+/leanote-desktop-app*
