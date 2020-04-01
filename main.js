@@ -22,6 +22,8 @@ crashReporter.start({
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
 
+app.allowRendererProcessReuse = true
+
 // single instance
 const gotTheLock = app.requestSingleInstanceLock()
 
