@@ -2086,7 +2086,7 @@ function userMenu(allUsers) {
     }
     if (debug) {
         setTimeout(function () {
-            gui.win.toggleDevTools();
+            // gui.win.toggleDevTools();
         }, 3000)
     }
 

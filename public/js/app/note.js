@@ -1174,6 +1174,8 @@ Note._getNoteHtmlObjct = function(note, isShared) {
             }
 
             var tmp;
+            require('electron').remote.getGlobal('console').log("(in _renderNotes) noteId: " + typeof(note.NoteId) + " " + note.NoteId.toString());
+            require('electron').remote.getGlobal('console').dir(note.NoteId);
             if (note.ImgSrc) {
                 tmp = tt(Note.getItemTpl(), classes, i, note.NoteId, Note.fixImageSrc(note.ImgSrc), note.Title || getMsg('UnTitled'), Notebook.getNotebookTitle(note.NotebookId), goNowToDatetime(note.UpdatedTime), note.Desc || '');
             } else {

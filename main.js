@@ -26,6 +26,7 @@ var mainWindow = null;
 const gotTheLock = app.requestSingleInstanceLock()
 
 if (!gotTheLock) {
+  console.log("gotTheLock is false, another instance is running")
   app.quit()
 } else {
   app.on('second-instance', (event, commandLine, workingDirectory) => {
